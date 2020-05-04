@@ -5,6 +5,9 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter } from 'react-router-dom';
 import 'typeface-roboto';
+import configureTasksStore from './hooks-store/tasks-store';
+
+configureTasksStore();
 
 ReactDOM.render(
   <BrowserRouter>

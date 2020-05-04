@@ -35,7 +35,6 @@ const useStyles = makeStyles((theme) => ({
       formControl: {
         margin: theme.spacing(1),
         minWidth: 120,
-        margin: '8px',
       },
       selectEmpty: {
         marginTop: theme.spacing(2),
@@ -51,8 +50,6 @@ const NewTask = props => {
     const [taskName, setTaskName] = React.useState('Mi tarea');
     const [time, setTime] = React.useState('');
     const [timeInput, setTimeInput] = React.useState('');
-
-    const timeInputForm = null;
 
     const handleChange = (event) => {
         setTaskName(event.target.value);
