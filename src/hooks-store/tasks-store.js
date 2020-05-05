@@ -15,25 +15,23 @@ const configureStore = () => {
     tasks: [
       {
         id: 'p1',
-        name: 'Red Scarf',
-        estimaded_time: 'A pretty red scarf.',
-        remaining_time: false,
+        name: 'Creación de estilos para la card de las tareas.',
+        estimaded_time: 45,
+        remaining_time: 45,
         finished: false,
         status: 'PENDING'
-      },
-      {
+      }, {
         id: 'p2',
-        name: 'Blue T-Shirt',
-        estimaded_time: 'A pretty blue t-shirt.',
-        remaining_time: false,
+        name: 'Creación de estilos para la card de las tareas.',
+        estimaded_time: 45,
+        remaining_time: 45,
         finished: false,
         status: 'PENDING'
-      },
-      {
+      }, {
         id: 'p3',
-        name: 'Green Trousers',
-        estimaded_time: 'A pair of lightly green trousers.',
-        remaining_time: false,
+        name: 'Creación de estilos para la card de las tareas.',
+        estimaded_time: 45,
+        remaining_time: 45,
         finished: false,
         status: 'PENDING'
       }
