@@ -1,9 +1,11 @@
 import React from 'react';
 
 import Card from '../../components/Card/Card';
+import { useStore } from '../../hooks-store/store';
 import './NewTask.css';
 
 import { makeStyles } from '@material-ui/core/styles';
+
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -44,7 +46,22 @@ const useStyles = makeStyles((theme) => ({
 
 const onlyNumbers = /^[0-9]*$/;
 
-const NewTask = props => {
+const NewTask = React.memo(props => {
+    console.log('[RENDERING] New Task');
+    const dispatch = useStore(false)[1];
+
+    const addTaskHandler = () => {
+        const newTask = {
+            id: '_' + Math.random().toString(36).substr(2, 7),
+            name: taskName,
+            estimaded_time: (time === 0 ? timeInput : time),
+            remaining_time: (time === 0 ? timeInput : time),
+            finished: false,
+            status: 'PENDING'
+        };
+        dispatch('NEW_TASK', newTask);
+    };
+
     const classes = useStyles();
 
     const [taskName, setTaskName] = React.useState('Mi tarea');
@@ -119,13 +136,13 @@ const NewTask = props => {
                         null
                 }
                 <div className={classes.root} style={{marginLeft: 'auto', marginTop: '8px'}}>
-                    <Button variant="outlined" color="primary">
+                    <Button onClick={addTaskHandler} variant="outlined" color="primary">
                         Añadir
                     </Button>
                 </div>
             </div>
         </Card>
     );
-};
+});
 
 export default NewTask;

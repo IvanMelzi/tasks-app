@@ -1,13 +1,21 @@
 import React from 'react';
 
+import { useStore } from '../../hooks-store/store';
 import './Task.css';
 
 import Button from '@material-ui/core/Button';
 
 import { Edit, PlayArrow, Pause, Restore, Delete } from '@material-ui/icons';
 
-const Task = props => {    
-    console.log(props);
+const Task = React.memo(props => {
+
+    console.log('[RENDERING] Task');
+    const dispatch = useStore(false)[1];
+
+    const removeTaskHandler = (taskId) => {
+        dispatch('DELETE_TASK', taskId);
+    };
+
     return (
         <div className="simple-task-container">
             <div className="simple-task-row">
@@ -26,12 +34,12 @@ const Task = props => {
                     <PlayArrow />
                     <Pause />
                     <Restore />
-                    <Delete color="secondary"/>
+                    <Delete onClick={() => removeTaskHandler(props.task.id)} color="secondary"/>
                 </div>
             </div>
         </div>
     );
-};
+});
 
 export default Task;
 

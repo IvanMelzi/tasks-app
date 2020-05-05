@@ -7,6 +7,14 @@ const configureStore = () => {
         updatedTasks.push(newTask)
         console.log(updatedTasks);
         return { tasks: updatedTasks };
+    },
+    DELETE_TASK: (currentState, taskId) => {
+        //const taskIndex = currentState.tasks.findIndex(task => task.id === taskId);
+        console.log('dDELETE TASK');
+        const currentTasks = [...currentState.tasks];
+        const updatedTasks = currentTasks.filter(task => task.id !== taskId)
+        console.log(updatedTasks);
+        return { tasks: updatedTasks };
       }
   };
 
