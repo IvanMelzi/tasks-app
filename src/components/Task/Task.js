@@ -3,7 +3,8 @@ import React from 'react';
 import './Task.css';
 
 import Button from '@material-ui/core/Button';
-import ThreeDRotation from '@material-ui/icons/ThreeDRotation';
+
+import { Edit, PlayArrow, Pause, Restore, Delete } from '@material-ui/icons';
 
 const Task = props => {    
     console.log(props);
@@ -21,13 +22,11 @@ const Task = props => {
                     Terminar tarea
                 </Button>
                 <div className="task-time-controls">
-                    <Button variant="contained" color="secondary">
-                        Terminar tarea
-                    </Button>
-                    <Button variant="contained" color="secondary">
-                        Terminar tarea
-                    </Button>
-                    <ThreeDRotation />
+                    <Edit />
+                    <PlayArrow />
+                    <Pause />
+                    <Restore />
+                    <Delete color="secondary"/>
                 </div>
             </div>
         </div>

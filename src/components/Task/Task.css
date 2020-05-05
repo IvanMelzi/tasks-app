@@ -18,13 +18,13 @@
     display: flex;
     flex-direction: row;
     margin-left: auto;
-    margin-top: 8px;
 }
 
 .simple-task-container .simple-task-controls {
     margin-top: 12px;
     display: flex;
     flex-direction: row;
+    align-items: center;
     width: 100%;
 }
 
@@ -34,4 +34,18 @@
         width: 100%;
     }
 
+    .simple-task-container .simple-task-row .task-time-remain {
+        margin-top: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .simple-task-container .simple-task-controls {
+        flex-direction: column;
+        align-items: start;
+    }
+
+    .simple-task-container .simple-task-controls .task-time-controls {
+        margin-top: 8px;
+    }
 }
