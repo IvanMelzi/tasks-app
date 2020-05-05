@@ -9,7 +9,7 @@ import { Edit, PlayArrow, Pause, Restore, Delete } from '@material-ui/icons';
 
 const Task = React.memo(props => {
 
-    console.log('[RENDERING] Task');
+    console.log('[RENDERING]  Task');
     const dispatch = useStore(false)[1];
 
     const removeTaskHandler = (taskId) => {
