@@ -9,13 +9,23 @@ const configureStore = () => {
         return { tasks: updatedTasks };
     },
     DELETE_TASK: (currentState, taskId) => {
-        //const taskIndex = currentState.tasks.findIndex(task => task.id === taskId);
-        console.log('dDELETE TASK');
         const currentTasks = [...currentState.tasks];
         const updatedTasks = currentTasks.filter(task => task.id !== taskId)
         console.log(updatedTasks);
         return { tasks: updatedTasks };
-      }
+    },
+    START_TASK: (currentState, taskId) => {
+        //const taskIndex = currentState.tasks.findIndex(task => task.id === taskId);
+
+        const pausedTasks = currentState.tasks.filter(task => task.id !== taskId);
+        const selectedTask = currentState.tasks.filter(task => task.id === taskId)[0];
+
+        const updatedTasks = [selectedTask, ...pausedTasks];
+        
+        updatedTasks[0].status = 'ACTIVE';
+
+        return { tasks: updatedTasks, current_task: selectedTask };
+    },
   };
 
   
