@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Card from '../../components/Card/Card';
+import Task from '../../components/Task/Task';
 
 import { useStore } from '../../hooks-store/store';
 
@@ -11,8 +12,7 @@ const TaskList = props => {
         <div className="tasks-list">
             {state.tasks.map(task => (
                 <Card key={task.id} style={{ marginBottom: '1rem' }}>
-                    <p>{task.name}</p>
-                    <p>{task.status}</p>
+                    <Task task={task}></Task>
                 </Card>
             ))}
         </div>
