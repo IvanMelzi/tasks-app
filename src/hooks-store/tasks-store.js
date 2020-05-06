@@ -38,8 +38,7 @@ const configureStore = () => {
         return { tasks: updatedTasks, current_task: null };
     },
     SAVE_TIME: (currentState, taskId) => {
-      console.log('[ACTIONS] SAVE_TASK');
-      console.log(currentState);
+      console.log('[ACTIONS] SAVE_TIME');
 
       const taskIndex = currentState.tasks.findIndex(task => task.id === taskId);
       const updatedTasks = [...currentState.tasks];
@@ -47,8 +46,21 @@ const configureStore = () => {
         ...currentState.tasks[taskIndex],
         remaining_time: currentState.tasks[taskIndex].remaining_time - 1000
       };
-      console.log(updatedTasks[taskIndex]);
       return { tasks: updatedTasks, current_task: updatedTasks[taskIndex] };
+    },
+    RESTART_TIME: (currentState, taskId) => {
+      console.log('[ACTIONS] RESTART_TIME');
+
+      const taskIndex = currentState.tasks.findIndex(task => task.id === taskId);
+      const updatedTasks = [...currentState.tasks];
+      updatedTasks[taskIndex] = {
+        ...currentState.tasks[taskIndex],
+        remaining_time: currentState.tasks[taskIndex].estimaded_time
+      };
+      if (currentState.current_task) {
+        return { tasks: updatedTasks, current_task: updatedTasks[taskIndex] };
+      }
+      return { tasks: updatedTasks };
     },
   };
 
