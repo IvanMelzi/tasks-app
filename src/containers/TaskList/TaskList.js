@@ -14,6 +14,7 @@ const TaskList = React.memo(props => {
     const [tempo, setTempo] = useState(true);
 
     const removeTaskHandler = (taskId) => {
+        clearInterval(tempo);
         dispatch('DELETE_TASK', taskId);
     };
 
@@ -34,6 +35,11 @@ const TaskList = React.memo(props => {
     const restartTaskHandler = (taskId) => {
         dispatch('RESTART_TIME', taskId);
     };
+
+    const finishTaskHandler = (taskId) => {
+        clearInterval(tempo);
+        dispatch('FINISH_TASK', taskId);
+    };
     
     const disabled = state.current_task ? true : false;
     let taskSelectedId = null;
@@ -41,9 +47,11 @@ const TaskList = React.memo(props => {
         taskSelectedId = state.current_task.id;
     }
 
+    const tasks = state.tasks.filter(tasks => tasks.status !== 'FINISHED');
+
     return (
         <div>
-            {state.tasks.map(task => (
+            {tasks.map(task => (
                 <Card key={task.id} style={{ marginBottom: '1rem' }}>
                     <Task
                         shouldFinishTask={task.id === taskSelectedId}
@@ -52,11 +60,11 @@ const TaskList = React.memo(props => {
                         startTask={startTaskHandler}
                         pauseTask={pauseTaskHandler}
                         deleteTask={removeTaskHandler}
+                        finishTask={finishTaskHandler}
                         task={task} />
                 </Card>
             ))}
         </div>
-
     );
 });
 

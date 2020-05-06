@@ -39,6 +39,7 @@ const Task = React.memo(props => {
     if (props.shouldFinishTask) {
         button_component = (
             <Button
+                onClick={() => props.finishTask(props.task.id)}
                 variant="contained"
                 color="secondary">
                     Terminar Tarea
@@ -71,6 +72,8 @@ const Task = React.memo(props => {
                 m: Math.floor((time / 1000 / 60) % 60),
                 s: Math.floor((time / 1000) % 60)
             };
+        } else {
+            props.finishTask(props.task.id)
         }
 
         const timerComponents = [];
@@ -79,14 +82,12 @@ const Task = React.memo(props => {
           if (!timeLeft[interval]) {
             return;
           }
-      
           timerComponents.push(
             <span key={timeLeft[interval]+props.task.id}>
               {timeLeft[interval]} {interval}{" "}
             </span>
           );
         });
-        
         return timerComponents;
     }
     
