@@ -62,6 +62,20 @@ const configureStore = () => {
       }
       return { tasks: updatedTasks };
     },
+    FINISH_TASK: (currentState, taskId) => {
+        console.log('[ACTIONS] FINISH_TASK');
+        console.log(new Date());
+        
+        const taskIndex = currentState.tasks.findIndex(task => task.id === taskId);
+        const updatedTasks = [...currentState.tasks];
+        updatedTasks[taskIndex] = {
+          ...currentState.tasks[taskIndex],
+          status: 'FINISHED',
+          finish_date: new Date()
+        };
+
+        return { tasks: updatedTasks, current_task: null };
+    },
   };
 
   
@@ -73,21 +87,24 @@ const configureStore = () => {
         estimaded_time: 45*60000,
         remaining_time: 45*60000,
         finished: false,
-        status: 'PENDING'
+        status: 'PENDING',
+        finish_date: ''
       }, {
         id: 'p2',
         name: 'Creación de estilos para la card de las tareas.',
         estimaded_time: 45*60000,
         remaining_time: 45*60000,
         finished: false,
-        status: 'PENDING'
+        status: 'PENDING',
+        finish_date: ''
       }, {
         id: 'p3',
         name: 'Creación de estilos para la card de las tareas.',
         estimaded_time: 45*60000,
         remaining_time: 45*60000,
         finished: false,
-        status: 'PENDING'
+        status: 'PENDING',
+        finish_date: ''
       }
     ]
   });
