@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Card from '../../components/Card/Card';
 import Task from '../../components/Task/Task';
 
 import { useStore } from '../../hooks-store/store';
 
-const TaskList = props => {
+const TaskList = React.memo(props => {
+    console.log('[RENDERING] TaskList');
 
     const state = useStore()[0];
-    const dispatch = useStore(false)[1];
+    const dispatch = useStore()[1];
+
+    const [tempo, setTempo] = useState(true);
 
     const removeTaskHandler = (taskId) => {
         dispatch('DELETE_TASK', taskId);
@@ -16,8 +19,19 @@ const TaskList = props => {
 
     const startTaskHandler = (taskId) => {
         dispatch('START_TASK', taskId);
+
+        setTempo(setInterval(() => {
+            console.log('tiempo corriendo');
+            dispatch('SAVE_TIME', taskId);
+        }, 1000))
     };
 
+    const pauseTaskHandler = (taskId) => {
+        dispatch('PAUSE_TASK', taskId);
+
+        clearInterval(tempo);
+    }
+    
     const disabled = state.current_task ? true : false;
     let taskSelectedId = null;
     if (state.current_task) {
@@ -32,6 +46,7 @@ const TaskList = props => {
                         shouldFinishTask={task.id === taskSelectedId}
                         shouldDisabledButtons={(disabled && task.id !== taskSelectedId)}
                         startTask={startTaskHandler}
+                        pauseTask={pauseTaskHandler}
                         deleteTask={removeTaskHandler}
                         task={task} />
                 </Card>
@@ -39,6 +54,6 @@ const TaskList = props => {
         </div>
 
     );
-};
+});
 
 export default TaskList;

@@ -76,12 +76,12 @@ const NewTask = React.memo(props => {
     };
 
     const handleTimeChange = (event) => {
-        setTime(event.target.value);
+        setTime(event.target.value * 60000);
     };
 
     const handleTimeInputChange = (event) => {
         if (onlyNumbers.test(event.target.value)) {
-            setTimeInput(event.target.value);
+            setTimeInput(event.target.value * 60000);
         }
     };
 
@@ -104,7 +104,7 @@ const NewTask = React.memo(props => {
                 </div>
                 <FormControl className={classes.formControl} style={{marginRight: '30px'}}>
                     <Select
-                        value={time}
+                        value={ (time.length !== 0) ? time / 60000 : '' }
                         onChange={handleTimeChange}
                         displayEmpty
                         className={classes.selectEmpty}
@@ -123,7 +123,7 @@ const NewTask = React.memo(props => {
                                 <Input
                                     id="standard-basic"
                                     label="Tiempo"
-                                    value={timeInput}
+                                    value={timeInput / 60000}
                                     onChange={handleTimeInputChange}
                                     endAdornment={<InputAdornment position="end">min</InputAdornment>}
                                     aria-describedby="standard-weight-helper-text"
