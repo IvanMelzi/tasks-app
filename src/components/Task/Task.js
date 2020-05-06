@@ -7,15 +7,31 @@ import Button from '@material-ui/core/Button';
 
 import { Edit, PlayArrow, Pause, Restore, Delete } from '@material-ui/icons';
 
-const Task = React.memo(props => {
+const Task = props => {
 
     console.log('[RENDERING] Task');
-    const dispatch = useStore(false)[1];
+    console.log(props);
 
-    const removeTaskHandler = (taskId) => {
-        dispatch('DELETE_TASK', taskId);
-    };
+    let play_icon = <PlayArrow color={props.shouldDisabledButtons ? "disabled" : "inherit"} />;
 
+    if (props.task.status === 'ACTIVE') {
+        play_icon = <Pause />;
+    }
+
+    let button_component = (
+        <Button variant="contained" color={props.shouldFinishTask ? "secondary" : "primary"}>
+            {props.shouldFinishTask ? "Terminar Tarea" : "Empezar Tarea"}
+        </Button>
+    );
+
+    if (props.shouldDisabledButtons) {
+        button_component = (
+            <Button variant="contained" disabled>
+                Empezar tarea
+            </Button>
+        )
+    }
+    
     return (
         <div className="simple-task-container">
             <div className="simple-task-row">
@@ -26,26 +42,26 @@ const Task = React.memo(props => {
                 </div>
             </div>
             <div className="simple-task-controls">
-                <Button variant="contained" color="secondary">
-                    Terminar tarea
-                </Button>
+                {button_component}
                 <div className="task-time-controls">
                     <Edit />
-                    <PlayArrow />
-                    <Pause />
-                    <Restore />
-                    <Delete onClick={() => removeTaskHandler(props.task.id)} color="secondary"/>
+                    <div onClick={() => props.startTask(props.task.id)}>
+                        {play_icon}
+                    </div>
+                    <Restore
+                        color={props.shouldDisabledButtons ? "disabled" : "inherit"} />
+                    <Delete onClick={() => props.deleteTask(props.task.id)} color="secondary"/>
                 </div>
             </div>
         </div>
     );
-});
+};
 
 export default Task;
+/* 
 
-/* id: 'p1',
-name: 'Red Scarf',
-estimaded_time: 'A pretty red scarf.',
-remaining_time: false,
-finished: false,
-status: 'PENDING' */
+<Delete
+onClick={() => props.deleteTask(props.task.id)}
+color={ props.shouldDisabledButtons ? "disabled" : "secondary" }/>
+
+*/
