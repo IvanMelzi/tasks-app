@@ -105,6 +105,7 @@ const Task = React.memo(props => {
                     <Edit />
                     {play_pause_container}
                     <Restore
+                        onClick={() => props.restartTask(props.task.id)}
                         color={props.shouldDisabledButtons ? "disabled" : "inherit"} />
                     <Delete onClick={() => props.deleteTask(props.task.id)} color="secondary"/>
                 </div>

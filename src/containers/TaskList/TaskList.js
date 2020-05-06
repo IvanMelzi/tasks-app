@@ -28,9 +28,12 @@ const TaskList = React.memo(props => {
 
     const pauseTaskHandler = (taskId) => {
         dispatch('PAUSE_TASK', taskId);
-
         clearInterval(tempo);
     }
+
+    const restartTaskHandler = (taskId) => {
+        dispatch('RESTART_TIME', taskId);
+    };
     
     const disabled = state.current_task ? true : false;
     let taskSelectedId = null;
@@ -45,6 +48,7 @@ const TaskList = React.memo(props => {
                     <Task
                         shouldFinishTask={task.id === taskSelectedId}
                         shouldDisabledButtons={(disabled && task.id !== taskSelectedId)}
+                        restartTask={restartTaskHandler}
                         startTask={startTaskHandler}
                         pauseTask={pauseTaskHandler}
                         deleteTask={removeTaskHandler}
