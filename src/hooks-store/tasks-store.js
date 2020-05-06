@@ -3,20 +3,19 @@ import { initStore } from './store';
 const configureStore = () => {
   const actions = {
     NEW_TASK: (currentState, newTask) => {
+        console.log('[ACTIONS] NEW_TASK');
         const updatedTasks = [...currentState.tasks];
         updatedTasks.push(newTask)
-        console.log(updatedTasks);
         return { tasks: updatedTasks };
     },
     DELETE_TASK: (currentState, taskId) => {
+        console.log('[ACTIONS] DELETE_TASK');
         const currentTasks = [...currentState.tasks];
         const updatedTasks = currentTasks.filter(task => task.id !== taskId)
-        console.log(updatedTasks);
         return { tasks: updatedTasks };
     },
     START_TASK: (currentState, taskId) => {
-        //const taskIndex = currentState.tasks.findIndex(task => task.id === taskId);
-
+        console.log('[ACTIONS] START_TASK');
         const pausedTasks = currentState.tasks.filter(task => task.id !== taskId);
         const selectedTask = currentState.tasks.filter(task => task.id === taskId)[0];
 
@@ -26,6 +25,31 @@ const configureStore = () => {
 
         return { tasks: updatedTasks, current_task: selectedTask };
     },
+    PAUSE_TASK: (currentState, taskId) => {
+        console.log('[ACTIONS] PAUSE_TASK');
+
+        const taskIndex = currentState.tasks.findIndex(task => task.id === taskId);
+        const updatedTasks = [...currentState.tasks];
+        updatedTasks[taskIndex] = {
+          ...currentState.tasks[taskIndex],
+          status: 'PENDING'
+        };
+
+        return { tasks: updatedTasks, current_task: null };
+    },
+    SAVE_TIME: (currentState, taskId) => {
+      console.log('[ACTIONS] SAVE_TASK');
+      console.log(currentState);
+
+      const taskIndex = currentState.tasks.findIndex(task => task.id === taskId);
+      const updatedTasks = [...currentState.tasks];
+      updatedTasks[taskIndex] = {
+        ...currentState.tasks[taskIndex],
+        remaining_time: currentState.tasks[taskIndex].remaining_time - 1000
+      };
+      console.log(updatedTasks[taskIndex]);
+      return { tasks: updatedTasks, current_task: updatedTasks[taskIndex] };
+    },
   };
 
   
@@ -34,22 +58,22 @@ const configureStore = () => {
       {
         id: 'p1',
         name: 'Creación de estilos para la card de las tareas.',
-        estimaded_time: 45,
-        remaining_time: 45,
+        estimaded_time: 45*60000,
+        remaining_time: 45*60000,
         finished: false,
         status: 'PENDING'
       }, {
         id: 'p2',
         name: 'Creación de estilos para la card de las tareas.',
-        estimaded_time: 45,
-        remaining_time: 45,
+        estimaded_time: 45*60000,
+        remaining_time: 45*60000,
         finished: false,
         status: 'PENDING'
       }, {
         id: 'p3',
         name: 'Creación de estilos para la card de las tareas.',
-        estimaded_time: 45,
-        remaining_time: 45,
+        estimaded_time: 45*60000,
+        remaining_time: 45*60000,
         finished: false,
         status: 'PENDING'
       }

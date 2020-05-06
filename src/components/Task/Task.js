@@ -1,16 +1,14 @@
 import React from 'react';
 
-import { useStore } from '../../hooks-store/store';
 import './Task.css';
 
 import Button from '@material-ui/core/Button';
 
 import { Edit, PlayArrow, Pause, Restore, Delete } from '@material-ui/icons';
 
-const Task = props => {
+const Task = React.memo(props => {
 
     console.log('[RENDERING] Task');
-    console.log(props);
 
     let play_icon = <PlayArrow color={props.shouldDisabledButtons ? "disabled" : "inherit"} />;
 
@@ -19,17 +17,77 @@ const Task = props => {
     }
 
     let button_component = (
-        <Button variant="contained" color={props.shouldFinishTask ? "secondary" : "primary"}>
-            {props.shouldFinishTask ? "Terminar Tarea" : "Empezar Tarea"}
+        <Button
+            onClick={() => props.startTask(props.task.id)}
+            variant="contained"
+            color="primary">
+                Empezar Tarea
         </Button>
     );
 
     if (props.shouldDisabledButtons) {
         button_component = (
-            <Button variant="contained" disabled>
-                Empezar tarea
+            <Button
+                onClick={() => props.startTask(props.task.id)}
+                variant="contained"
+                disabled>
+                    Empezar tarea
             </Button>
         )
+    }
+
+    if (props.shouldFinishTask) {
+        button_component = (
+            <Button
+                variant="contained"
+                color="secondary">
+                    Terminar Tarea
+            </Button>
+        )
+    }
+
+    let play_pause_container = null;
+    if (props.task.status === 'ACTIVE') {
+        play_pause_container = (
+            <div onClick={() => props.pauseTask(props.task.id)}>
+                {play_icon}
+            </div>
+        )
+    } else {
+        play_pause_container = (
+            <div onClick={() => props.startTask(props.task.id)}>
+                {play_icon}
+            </div>
+        )
+    }
+
+    const convertTime = (time) => {
+        let timeLeft = {};
+
+        if (time > 0) {
+            timeLeft = {
+                d: Math.floor(time / (1000 * 60 * 60 * 24)),
+                h: Math.floor((time / (1000 * 60 * 60)) % 24),
+                m: Math.floor((time / 1000 / 60) % 60),
+                s: Math.floor((time / 1000) % 60)
+            };
+        }
+
+        const timerComponents = [];
+
+        Object.keys(timeLeft).forEach(interval => {
+          if (!timeLeft[interval]) {
+            return;
+          }
+      
+          timerComponents.push(
+            <span key={timeLeft[interval]+props.task.id}>
+              {timeLeft[interval]} {interval}{" "}
+            </span>
+          );
+        });
+        
+        return timerComponents;
     }
     
     return (
@@ -38,16 +96,14 @@ const Task = props => {
                 <span>{props.task.name}</span>
                 <div className="task-time-remain">
                     <span>{'Tiempo estimado: \xa0\xa0'}</span>
-                    <span>{ `${props.task.estimaded_time} min`}</span>
+                    <span>{convertTime(props.task.remaining_time)}</span>
                 </div>
             </div>
             <div className="simple-task-controls">
                 {button_component}
                 <div className="task-time-controls">
                     <Edit />
-                    <div onClick={() => props.startTask(props.task.id)}>
-                        {play_icon}
-                    </div>
+                    {play_pause_container}
                     <Restore
                         color={props.shouldDisabledButtons ? "disabled" : "inherit"} />
                     <Delete onClick={() => props.deleteTask(props.task.id)} color="secondary"/>
@@ -55,13 +111,6 @@ const Task = props => {
             </div>
         </div>
     );
-};
+});
 
 export default Task;
-/* 
-
-<Delete
-onClick={() => props.deleteTask(props.task.id)}
-color={ props.shouldDisabledButtons ? "disabled" : "secondary" }/>
-
-*/
