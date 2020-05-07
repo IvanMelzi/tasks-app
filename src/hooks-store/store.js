@@ -31,9 +31,17 @@ export const useStore = (shouldListen = true) => {
   return [globalState, dispatch];
 };
 
-export const initStore = (userActions, initialState) => {
-  if (initialState) {
-    globalState = { ...globalState, ...initialState };
+export const initStore = (userActions) => {
+  const local_storage = JSON.parse(localStorage.getItem('data'));
+
+  if (local_storage) {
+    console.log('entre');
+    local_storage.tasks.forEach(task => {
+      if (task.status === 'ACTIVE') {
+        task.status = 'PENDING';
+      }
+    });
+    globalState = { ...globalState, ...local_storage };
   }
   actions = { ...actions, ...userActions };
 };

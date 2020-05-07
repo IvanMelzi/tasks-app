@@ -11,7 +11,10 @@ const History = props => {
 
     const state = useStore()[0];
 
-    const tasks = state.tasks.filter(tasks => tasks.status === 'FINISHED');
+    let tasks = [];
+    if (state.tasks) {
+        tasks = state.tasks.filter(tasks => tasks.status === 'FINISHED');
+    }
     let content = <h1>¡Aún no tienes tareas terminadas!</h1>;
      
     const convertTime = (time) => {
@@ -53,7 +56,7 @@ const History = props => {
                         </div>
                     </div>
                     <div className="history-time-finished">
-                        <span>{'Fecha de término: \xa0\xa0' + task.finish_date.toLocaleDateString()}</span>
+                        <span>{'Fecha de término: \xa0\xa0' + new Date(task.finish_date).toLocaleDateString()}</span>
                     </div>
                 </div>
             </Card>

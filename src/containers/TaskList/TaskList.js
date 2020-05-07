@@ -40,6 +40,10 @@ const TaskList = React.memo(props => {
         clearInterval(tempo);
         dispatch('FINISH_TASK', taskId);
     };
+
+    const saveTaskHandler = (taskUpdated) => {
+        dispatch('SAVE_TASK', taskUpdated);
+    };
     
     const disabled = state.current_task ? true : false;
     let taskSelectedId = null;
@@ -47,25 +51,32 @@ const TaskList = React.memo(props => {
         taskSelectedId = state.current_task.id;
     }
 
-    const tasks = state.tasks.filter(tasks => tasks.status !== 'FINISHED');
+    let tasks = <h1>¡Aún no tienes tareas, agrega una para verla!</h1>;
 
-    return (
-        <div>
-            {tasks.map(task => (
-                <Card key={task.id} style={{ marginBottom: '1rem' }}>
-                    <Task
-                        shouldFinishTask={task.id === taskSelectedId}
-                        shouldDisabledButtons={(disabled && task.id !== taskSelectedId)}
-                        restartTask={restartTaskHandler}
-                        startTask={startTaskHandler}
-                        pauseTask={pauseTaskHandler}
-                        deleteTask={removeTaskHandler}
-                        finishTask={finishTaskHandler}
-                        task={task} />
-                </Card>
-            ))}
-        </div>
-    );
+    if (state.tasks) {
+        tasks = state.tasks.filter(tasks => tasks.status !== 'FINISHED');
+        tasks = (
+            <div>
+                {tasks.map(task => (
+                    <Card key={task.id} style={{ marginBottom: '1rem' }}>
+                        <Task
+                            shouldFinishTask={task.id === taskSelectedId}
+                            shouldDisabledButtons={(disabled && task.id !== taskSelectedId)}
+                            restartTask={restartTaskHandler}
+                            startTask={startTaskHandler}
+                            pauseTask={pauseTaskHandler}
+                            deleteTask={removeTaskHandler}
+                            finishTask={finishTaskHandler}
+                            saveTask={saveTaskHandler}
+                            task={task} />
+                    </Card>
+                ))}
+            </div>
+        );
+    }
+
+
+    return (tasks);
 });
 
 export default TaskList;
