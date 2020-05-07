@@ -41,25 +41,6 @@ const History = props => {
         return timerComponents;
     }
 
-/*     if (tasks.length > 0) {
-        content = tasks.map(task => (
-            <Card key={task.id} style={{ marginBottom: '1rem' }}>
-                <div className=".history-task-container">
-                    <div className="simple-task-row">
-                        <span>{task.name}</span>
-                        <div className="task-time-remain">
-                            <span>{'Terminada en: \xa0\xa0'}</span>
-                            <span>{convertTime(task.estimaded_time - task.remaining_time)}</span>
-                        </div>
-                    </div>
-                    <div className="history-date">
-                        <span>{'Fecha de término: \xa0\xa0' + task.finish_date.toLocaleDateString()}</span>
-                    </div>
-                </div>
-            </Card>
-        ))
-    } */
-
     if (tasks.length > 0) {
         content = tasks.map(task => (
             <Card key={task.id} style={{ marginBottom: '1rem' }}>

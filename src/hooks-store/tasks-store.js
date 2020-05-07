@@ -12,7 +12,7 @@ const configureStore = () => {
         console.log('[ACTIONS] DELETE_TASK');
         const currentTasks = [...currentState.tasks];
         const updatedTasks = currentTasks.filter(task => task.id !== taskId)
-        return { tasks: updatedTasks };
+        return { tasks: updatedTasks, current_task: null };
     },
     START_TASK: (currentState, taskId) => {
         console.log('[ACTIONS] START_TASK');
