@@ -6,7 +6,6 @@ import Task from '../../components/Task/Task';
 import { useStore } from '../../hooks-store/store';
 
 const TaskList = React.memo(props => {
-    console.log('[RENDERING] TaskList');
 
     const state = useStore()[0];
     const dispatch = useStore()[1];
@@ -22,7 +21,6 @@ const TaskList = React.memo(props => {
         dispatch('START_TASK', taskId);
 
         setTempo(setInterval(() => {
-            console.log('tiempo corriendo');
             dispatch('SAVE_TIME', taskId);
         }, 1000))
     };
