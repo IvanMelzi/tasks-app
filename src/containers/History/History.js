@@ -9,8 +9,6 @@ import { useStore } from '../../hooks-store/store';
 
 const History = props => {
 
-    console.log('[RENDERING] History');
-
     const state = useStore()[0];
     const dispatch = useStore()[1];
 

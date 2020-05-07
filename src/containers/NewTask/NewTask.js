@@ -47,7 +47,6 @@ const useStyles = makeStyles((theme) => ({
 const onlyNumbers = /^[0-9]*$/;
 
 const NewTask = React.memo(props => {
-    console.log('[RENDERING] New Task');
     const dispatch = useStore(false)[1];
 
     const addTaskHandler = () => {

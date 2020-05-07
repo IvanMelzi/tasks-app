@@ -26,8 +26,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Task = React.memo(props => {
 
-    console.log('[RENDERING] Task');
-
     const [editTask, setEditTask] = useState(false);
     const [taskName, setTaskName] = React.useState('');
     const [timeInput, setTimeInput] = React.useState('');
