@@ -77,17 +77,17 @@ const Performance = (props) => {
                         width={600}
                         standalone={false}
                         style={{
-                        data: { width: 10 },
-                        labels: {fontSize: 10}
+                        data: { width: 8 },
+                        labels: {fontSize: 8}
                         }}
                         data={data}
                         labels={labels}
                         labelComponent={<VictoryLabel y={285}/>}
                     />
                 </g>
-                <g transform={"translate(0, -75)"}>
+                <g transform={"translate(0, -25)"}>
                     <VictoryPie name="pie"
-                        width={280}
+                        width={380}
                         standalone={false}
                         style={{ labels: {fontSize: 10, padding: 10}}}
                         data={data}

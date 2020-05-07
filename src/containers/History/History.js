@@ -3,6 +3,8 @@ import './History.css';
 
 import Card from '../../components/Card/Card';
 
+import Button from '@material-ui/core/Button';
+
 import { useStore } from '../../hooks-store/store';
 
 const History = props => {
@@ -10,6 +12,7 @@ const History = props => {
     console.log('[RENDERING] History');
 
     const state = useStore()[0];
+    const dispatch = useStore()[1];
 
     let tasks = [];
     if (state.tasks) {
@@ -36,11 +39,12 @@ const History = props => {
             return;
           }
           timerComponents.push(
-            <span key={timeLeft[interval]+ new Date()}>
+            <span key={timeLeft[interval]+ new Date() + Math.random()*1000}>
               {timeLeft[interval]} {interval}{" "}
             </span>
           );
         });
+
         return timerComponents;
     }
 
@@ -51,19 +55,57 @@ const History = props => {
                     <div className="history-task-row">
                         <span>{task.name}</span>
                         <div className="history-time-remain">
-                            <span>{'Terminada en: \xa0'}</span>
+                            <span><strong>{'Terminada en: \xa0'}</strong></span>
                             <span>{convertTime(task.estimaded_time - task.remaining_time)}</span>
                         </div>
                     </div>
-                    <div className="history-time-finished">
+                    <div className="history-task-row">
                         <span>{'Fecha de término: \xa0\xa0' + new Date(task.finish_date).toLocaleDateString()}</span>
+                        <div className="history-time-remain">
+                            <span><strong>{'Tiempo estimado: \xa0'}</strong></span>
+                            <span>{convertTime(task.estimaded_time)}</span>
+                        </div>
                     </div>
                 </div>
             </Card>
         ))
     }
+
+    const addRandomTasks = () => {
+        const random_tasks = [];
+
+        for (let i=0; i < 50; i++) {
+            const id = '_' + i + Math.random().toString(36).substr(2, 7)
+            const date = new Date();
+            date.setDate(date.getDate() - ((Math.random() * 5) + 1));
+
+            const estimaded_time = ((Math.random() * 90) + 1) * 60000;
+            let remaining_time = estimaded_time * ((Math.random() * (100 - 80 + 1)) + 80) / 100;
+            remaining_time = estimaded_time - remaining_time;
+
+            const newTask = {
+                id: id,
+                name: 'Tarea: ' + id,
+                estimaded_time: estimaded_time,
+                remaining_time: remaining_time,
+                finish_date: date,
+                finished: true,
+                status: 'FINISHED'
+            };
+            random_tasks.push(newTask);
+        }
+        dispatch('RANDOM_TASKS', random_tasks);
+    }
+
     return (
-        <div className="history-tasks-list">      
+        <div className="history-tasks-list">
+            <Button
+                style={{marginBottom: '16px'}}
+                onClick={addRandomTasks}
+                variant="contained"
+                color="primary">
+                    Agregar 50 tareas
+            </Button>
             <div>
                 {content}
             </div>

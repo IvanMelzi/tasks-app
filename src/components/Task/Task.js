@@ -161,7 +161,7 @@ const Task = React.memo(props => {
             <div className="simple-task-row">
                 <span>{props.task.name}</span>
                 <div className="task-time-remain">
-                    <span>{'Tiempo estimado: \xa0\xa0'}</span>
+                    <span><strong>{'Tiempo estimado: \xa0\xa0'}</strong></span>
                     <span>{convertTime(props.task.remaining_time)}</span>
                 </div>
             </div>
