@@ -82,7 +82,12 @@ const Task = React.memo(props => {
 
     const saveTaskHandler = () => {
         setEditTask(false);
-        props.saveTask(props.task.id)
+        const task_updated = {
+            id: props.task.id,
+            name: taskName,
+            time: timeInput
+        }
+        props.saveTask(task_updated);
     }
 
     const onlyNumbers = /^[0-9]*$/;
@@ -207,7 +212,7 @@ const Task = React.memo(props => {
                 </div>
                 <div className="simple-task-controls">
                 <Button
-                    style={{marginRigth: "16px"}}
+                    style={{marginRight: "16px"}}
                     onClick={saveTaskHandler}
                     variant="outlined"
                     color="secondary">

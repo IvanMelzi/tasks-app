@@ -13,12 +13,17 @@ const Performance = (props) => {
     const labels = [];
 
     const guide_names = [];
-    let chart = <h1>¡Aún no tienes tareas terminadas esta semana!</h1>;
+    let chart = <h1>¡Aún no tienes tareas terminadas ésta semana!</h1>;
 
     const date = new Date();
     date.setDate(date.getDate() - 7);
 
-    const tasks = state.tasks.filter(tasks => (tasks.status === 'FINISHED' && tasks.finish_date >= date));
+    let tasks = [];
+    if (state.tasks) {
+        tasks = state.tasks.filter(tasks => (
+            tasks.status === 'FINISHED' && new Date(tasks.finish_date) >= date
+        ));
+    }
 
     const createData = () => {
         if (tasks.length > 0) {
