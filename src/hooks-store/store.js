@@ -35,7 +35,6 @@ export const initStore = (userActions) => {
   const local_storage = JSON.parse(localStorage.getItem('data'));
 
   if (local_storage) {
-    console.log('entre');
     local_storage.tasks.forEach(task => {
       if (task.status === 'ACTIVE') {
         task.status = 'PENDING';
