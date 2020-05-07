@@ -22,7 +22,7 @@ const Performance = (props) => {
 
     const createData = () => {
         if (tasks.length > 0) {
-            tasks.map((task, index) => {
+            tasks.forEach((task, index) => {
                 guide_names.push(
                     <p key={index}>{'T' + (index + 1) + '=>  ' + task.name}</p>
                 );
@@ -32,7 +32,6 @@ const Performance = (props) => {
                 }
                 data.push(obj);
                 labels.push("T" + (index + 1));
-                console.log(task.estimaded_time - task.remaining_time)
             });
         }
     };

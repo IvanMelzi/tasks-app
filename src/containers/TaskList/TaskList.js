@@ -40,6 +40,11 @@ const TaskList = React.memo(props => {
         clearInterval(tempo);
         dispatch('FINISH_TASK', taskId);
     };
+
+    const saveTaskHandler = (taskId) => {
+        console.log('lllll');
+        //dispatch('FINISH_TASK', taskId);
+    };
     
     const disabled = state.current_task ? true : false;
     let taskSelectedId = null;
@@ -61,6 +66,7 @@ const TaskList = React.memo(props => {
                         pauseTask={pauseTaskHandler}
                         deleteTask={removeTaskHandler}
                         finishTask={finishTaskHandler}
+                        saveTask={saveTaskHandler}
                         task={task} />
                 </Card>
             ))}
