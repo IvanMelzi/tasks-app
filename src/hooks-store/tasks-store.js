@@ -103,6 +103,20 @@ const configureStore = () => {
         saveStorage({ tasks: updatedTasks });
         return { tasks: updatedTasks };
     },
+    RANDOM_TASKS: (currentState, newTasks) => {
+      console.log('[ACTIONS] RANDOM_TASKS');
+      let updatedTasks = [];
+
+      if (currentState.tasks) {
+        console.log('entre a c')
+        updatedTasks = [...currentState.tasks, ...newTasks];
+      } else {
+        updatedTasks = [...newTasks];
+      }
+
+      saveStorage({ tasks: updatedTasks });
+      return { tasks: updatedTasks };
+  },
   };
 
   
