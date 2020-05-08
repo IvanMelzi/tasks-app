@@ -1,13 +1,17 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 import './SideBar.css';
 
-import { NavLink } from 'react-router-dom';
-
+//Icons Imports
 import tasksIcon from '../../assets/icons/tasks.svg';
 import historyIcon from '../../assets/icons/history.svg';
 import performanceIcon from '../../assets/icons/performance.svg';
 
+/**
+ * Side Bar with router links.
+ *
+ */
 const SideBar = props => {
     return (
         <div className="main-side">

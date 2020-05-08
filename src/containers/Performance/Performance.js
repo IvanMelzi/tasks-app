@@ -1,23 +1,31 @@
 import React from 'react';
-import { VictorySharedEvents, VictoryBar, VictoryLabel, VictoryPie } from 'victory';
 
 import './Performance.css';
 
+// Victory chart.
+import { VictorySharedEvents, VictoryBar, VictoryLabel, VictoryPie } from 'victory';
+
+// Global state.
 import { useStore } from '../../hooks-store/store';
 
 const Performance = (props) => {
 
+    // Global state.
     const state = useStore()[0];
 
+    // Data and labels chart.
     const data = [];
     const labels = [];
-
     const guide_names = [];
+
+    // Empty state.
     let chart = <h1>¡Aún no tienes tareas terminadas ésta semana!</h1>;
 
+    // Date 7 days ago.
     const date = new Date();
     date.setDate(date.getDate() - 7);
 
+    // Task finished in las 7 days.
     let tasks = [];
     if (state.tasks) {
         tasks = state.tasks.filter(tasks => (
@@ -25,6 +33,7 @@ const Performance = (props) => {
         ));
     }
 
+    // Format data to the charts.
     const createData = () => {
         if (tasks.length > 0) {
             tasks.forEach((task, index) => {
@@ -41,8 +50,10 @@ const Performance = (props) => {
         }
     };
 
+    // Create data on Startup.
     createData();
 
+    // Create chart.
     if (tasks.length > 0) {
         chart = (
             <svg viewBox="0 0 850 360">

@@ -1,11 +1,14 @@
 import React from 'react';
 
-import Card from '../../components/Card/Card';
-import { useStore } from '../../hooks-store/store';
 import './NewTask.css';
 
-import { makeStyles } from '@material-ui/core/styles';
+// Local Components.
+import Card from '../../components/Card/Card';
 
+// Global state.
+import { useStore } from '../../hooks-store/store';
+
+//Material UI components.
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -14,7 +17,9 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import { makeStyles } from '@material-ui/core/styles';
 
+//Material UI styles
 const useStyles = makeStyles((theme) => ({
     root: {
       '& .MuiTextField-root': {
@@ -44,11 +49,29 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const onlyNumbers = /^[0-9]*$/;
+
 
 const NewTask = React.memo(props => {
+
+    // Material UI styles.
+    const classes = useStyles();
+
+    // Global actions.
     const dispatch = useStore(false)[1];
 
+    //Use state edit task name.
+    const [taskName, setTaskName] = React.useState('Mi tarea');
+
+    //Use state edit task time.
+    const [time, setTime] = React.useState('');
+
+    //Use state edit task time input.
+    const [timeInput, setTimeInput] = React.useState('');
+    
+    // Regex only numbers.
+    const onlyNumbers = /^[0-9]*$/;
+
+    // Add task action handler.
     const addTaskHandler = () => {
         const newTask = {
             id: '_' + Math.random().toString(36).substr(2, 7),
@@ -61,12 +84,7 @@ const NewTask = React.memo(props => {
         dispatch('NEW_TASK', newTask);
     };
 
-    const classes = useStyles();
-
-    const [taskName, setTaskName] = React.useState('Mi tarea');
-    const [time, setTime] = React.useState('');
-    const [timeInput, setTimeInput] = React.useState('');
-
+    // Handle input name change.
     const handleChange = (event) => {
         setTaskName(event.target.value);
         if (event.target.value.trim().length === 0) {
@@ -74,10 +92,12 @@ const NewTask = React.memo(props => {
         }
     };
 
+    // Handle time change.
     const handleTimeChange = (event) => {
         setTime(event.target.value * 60000);
     };
 
+    // Handle time input change and acept only numbers.
     const handleTimeInputChange = (event) => {
         if (onlyNumbers.test(event.target.value)) {
             setTimeInput(event.target.value * 60000);

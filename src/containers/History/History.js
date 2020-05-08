@@ -1,23 +1,31 @@
 import React from 'react';
 import './History.css';
 
+// Card component
 import Card from '../../components/Card/Card';
 
+// Material ui component
 import Button from '@material-ui/core/Button';
 
+// Global state
 import { useStore } from '../../hooks-store/store';
 
 const History = props => {
 
+    // Global State and actions.
     const state = useStore()[0];
     const dispatch = useStore()[1];
 
+    // Filter tasks finished.
     let tasks = [];
     if (state.tasks) {
         tasks = state.tasks.filter(tasks => tasks.status === 'FINISHED');
     }
+
+    // Empty state.
     let content = <h1>¡Aún no tienes tareas terminadas!</h1>;
      
+    //Function to convert the miliseconds in  1h 1m 1s format.
     const convertTime = (time) => {
         let timeLeft = {};
 
@@ -46,6 +54,7 @@ const History = props => {
         return timerComponents;
     }
 
+    //Show tasks finished.
     if (tasks.length > 0) {
         content = tasks.map(task => (
             <Card key={task.id} style={{ marginBottom: '1rem' }}>
@@ -69,6 +78,7 @@ const History = props => {
         ))
     }
 
+    // Creates 50 tasks finished in last 7 days.
     const addRandomTasks = () => {
         const random_tasks = [];
 
