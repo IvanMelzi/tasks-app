@@ -65,6 +65,7 @@ const TaskList = React.memo(props => {
 
     // Set filter tasks.
     if (state.tasks) {
+        console.log(props.filter);
         tasks = state.tasks.filter(tasks => tasks.status !== 'FINISHED');
 
         if (props.filter) {
@@ -75,7 +76,7 @@ const TaskList = React.memo(props => {
                     tasks.estimaded_time <= (1000*60*60) && tasks.estimaded_time > (1000*60*30)
                 ));
             } else if (props.filter === '1') {
-                tasks = state.tasks.filter(tasks => tasks.estimaded_time < (1000*60*30)); 
+                tasks = state.tasks.filter(tasks => tasks.estimaded_time <= (1000*60*30)); 
             }
         }
         tasks = (
