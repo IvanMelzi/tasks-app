@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import './NewTask.css';
 
@@ -49,8 +49,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-
-
 const NewTask = React.memo(props => {
 
     // Material UI styles.
@@ -67,10 +65,31 @@ const NewTask = React.memo(props => {
 
     //Use state edit task time input.
     const [timeInput, setTimeInput] = React.useState('');
+
+    //Use state edit task time input.
+    const [disableButton, setdisableButton] = React.useState(true);
     
     // Regex only numbers.
     const onlyNumbers = /^[0-9]*$/;
+ 
+    // Disable button if the data has an error.
+    useEffect(() => {
+        if (taskName !== '' && time !== '') {
+            if (time !== 0) {
+                setdisableButton(false);
+            } else {
+                if (timeInput > 0) {
+                    setdisableButton(false);
+                } else {
+                    setdisableButton(true);
+                }
+            }
+        } else {
+            setdisableButton(true);
+        }
 
+    }, [time, timeInput, taskName, disableButton]);
+     
     // Add task action handler.
     const addTaskHandler = () => {
         const newTask = {
@@ -100,10 +119,15 @@ const NewTask = React.memo(props => {
     // Handle time input change and acept only numbers.
     const handleTimeInputChange = (event) => {
         if (onlyNumbers.test(event.target.value)) {
-            setTimeInput(event.target.value * 60000);
+            if (event.target.value > 120) {
+                alert("El tiempo no puede ser mayor a 120 min (2 horas)");
+            } else {
+                setTimeInput(event.target.value * 60000);
+            }
         }
     };
 
+   
     return (
         <Card style={{ marginBottom: '1rem' }}>
             <div className="task-container">
@@ -155,9 +179,21 @@ const NewTask = React.memo(props => {
                         null
                 }
                 <div className={classes.root} style={{marginLeft: 'auto', marginTop: '8px'}}>
-                    <Button onClick={addTaskHandler} variant="outlined" color="primary">
-                        Añadir
-                    </Button>
+                    {
+                    disableButton ?
+                        <Button
+                            disabled
+                            variant="outlined"
+                            color="primary">
+                                Añadir
+                        </Button>   :
+                        <Button
+                            onClick={addTaskHandler}
+                            variant="outlined"
+                            color="primary">
+                                Añadir
+                        </Button>
+                    }
                 </div>
             </div>
         </Card>

@@ -42,13 +42,17 @@ const Task = React.memo(props => {
     let play_pause_container = null;
     let edit_container = null;
 
-    let play_icon = <PlayArrow color={props.shouldDisabledButtons ? "disabled" : "inherit"} />;
+    let play_icon = (
+        <PlayArrow 
+            style={{cursor: "pointer"}}
+            color={props.shouldDisabledButtons ? "disabled" : "inherit"} />
+    );
 
     const classes = useStyles();
 
     //Change icon pay to pause and vice versa.
     if (props.task.status === 'ACTIVE') {
-        play_icon = <Pause />;
+        play_icon = <Pause style={{cursor: "pointer"}} />;
     }
 
     let button_component = (
@@ -128,7 +132,7 @@ const Task = React.memo(props => {
             </div>
         );
         edit_container = (
-            <Edit color="disabled"/>
+            <Edit style={{cursor: "pointer"}} color="disabled"/>
         );
     } else {
         play_pause_container = (
@@ -138,7 +142,7 @@ const Task = React.memo(props => {
         )
         edit_container = (
             <div onClick={() => editTaskState(true)}>
-                 <Edit color="inherit"/>
+                 <Edit style={{cursor: "pointer"}} color="inherit"/>
             </div>
         );
     }
@@ -189,9 +193,13 @@ const Task = React.memo(props => {
                     {edit_container}
                     {play_pause_container}
                     <Restore
+                        style={{cursor: "pointer"}}
                         onClick={() => props.restartTask(props.task.id)}
                         color={props.shouldDisabledButtons ? "disabled" : "inherit"} />
-                    <Delete onClick={() => props.deleteTask(props.task.id)} color="secondary"/>
+                    <Delete
+                        style={{cursor: "pointer"}}
+                        onClick={() => props.deleteTask(props.task.id)}
+                        color="secondary"/>
                 </div>
             </div>
         </div>

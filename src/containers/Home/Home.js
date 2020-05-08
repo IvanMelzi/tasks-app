@@ -74,7 +74,7 @@ const Home = props => {
           <Chip
             size="medium"
             icon={<FilterListIcon />}
-            label="Filtar"
+            label="Filtrar"
             onClick={handleClick} />
             <div className="home-radio-group">
               {formRadio}
