@@ -4,6 +4,7 @@ let globalState = {};
 let listeners = [];
 let actions = {};
 
+// Manage global store.
 export const useStore = (shouldListen = true) => {
   const setState = useState(globalState)[1];
 
@@ -31,6 +32,7 @@ export const useStore = (shouldListen = true) => {
   return [globalState, dispatch];
 };
 
+// Init store when app starts.
 export const initStore = (userActions) => {
   const local_storage = JSON.parse(localStorage.getItem('data'));
 

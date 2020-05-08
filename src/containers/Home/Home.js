@@ -1,23 +1,30 @@
 import React, { useState } from 'react';
 import './Home.css';
+
+// Local Components
 import NewTask from '../NewTask/NewTask'
 import TaskList from '../TaskList/TaskList';
 
+// Material UI components
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
-
 import Chip from '@material-ui/core/Chip';
 import FilterListIcon from '@material-ui/icons/FilterList';
 
 const Home = props => {
 
+  //Use state show filter boolean.
   const [filter, setFilter] = useState(false);
+
+  //Use state set radio button.
   const [value, setValue] = React.useState();
 
+  // Form Radio container.
   let formRadio = null;
 
+  // Handle show filter click.
   const handleClick = () => {
     setFilter(!filter);
     if (filter) {
@@ -25,10 +32,12 @@ const Home = props => {
     }
   };
 
+  // Handle radio selection.
   const handleChange = (event) => {
     setValue(event.target.value);
   }
 
+  // Show radio group if filter is active.
   if (filter) {
     formRadio = (
       <FormControl component="fieldset">

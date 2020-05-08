@@ -1,5 +1,6 @@
 import { initStore } from './store';
 
+// Actions store.
 const configureStore = () => {
   const actions = {
     NEW_TASK: (currentState, newTask) => {
@@ -108,6 +109,7 @@ const configureStore = () => {
   initStore(actions);
 };
 
+// Set local storage.
 const saveStorage = (data) => {
   localStorage.setItem("data", JSON.stringify(data));
 }
