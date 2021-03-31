@@ -1,0 +1,16 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: wizeline-component-manual
+  description: Component test from Wizeline
+  labels:
+    system: demo-wizeline
+  annotations:
+    example.com/service-discovery: wizeline
+    circleci.com/project-slug: github/example-org/Wizeline
+  tags:
+    - react
+spec:
+  type: website
+  lifecycle: production
+  owner: wizeline-backstage-team
